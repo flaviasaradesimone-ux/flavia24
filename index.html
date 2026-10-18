@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Conferma la tua presenza · Flavia 24</title>
+<meta name="description" content="Giovedì 29 ottobre, ore 21:00, Spazio Nea – Piazza Bellini, Napoli. Conferma la tua presenza alla festa per i 24 anni di Flavia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: prima pagina del Quotidiano su fondo miele; in alto la notizia della festa, poi il modulo di conferma, poi l'elenco di chi viene. */
+:root{
+  --honey:#FFD25E;
+  --paper:#FFF9E6;
+  --paper-2:#FFE58F;
+  --ink:#231C14;
+  --ink-soft:#5C4A2E;
+  --amber:#8A6200;
+  --stamp:#B3261E;
+  --display:'Playfair Display', Georgia, 'Times New Roman', serif;
+  --mast:'UnifrakturMaguntia', 'Playfair Display', Georgia, serif;
+  --body:'Libre Caslon Text', Georgia, serif;
+  --mono:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--honey);color:var(--ink)}
+[hidden]{display:none!important}
+body{font-family:var(--body);font-size:16px;line-height:1.45;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:calc(20px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px))}
+button,input,textarea{font:inherit;color:inherit}
+.sheet{max-width:680px;margin:0 auto;background:var(--paper);box-shadow:0 18px 40px rgba(150,100,0,.25);padding:22px 20px 28px;display:flex;flex-direction:column;gap:16px}
+.topline{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.mast{font-family:var(--mast);font-size:clamp(40px,10vw,66px);line-height:1;text-align:center;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding:10px 0 4px;margin:0;font-weight:400}
+.dateline{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-style:italic;font-size:14px;border-bottom:1px solid var(--ink);padding-bottom:6px}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(32px,8.5vw,54px);line-height:1;letter-spacing:-.5px;text-align:center;margin:4px 0 0;text-wrap:balance}
+.dek{font-family:var(--display);font-style:italic;font-weight:700;color:var(--amber);font-size:clamp(17px,4.4vw,22px);line-height:1.25;text-align:center;margin:0;text-wrap:balance}
+.ticket{border:2px dashed var(--ink);background:var(--paper-2);padding:12px 14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}
+.ticket div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ticket small{font-family:var(--mono);font-size:11px;letter-spacing:2px}
+.ticket strong{font-family:var(--display);font-weight:900;font-size:clamp(16px,4.2vw,22px);line-height:1.15}
+@media (max-width:420px){.ticket{grid-template-columns:1fr}}
+.section-h{font-family:var(--mono);font-size:12px;letter-spacing:2px;font-weight:600;border-top:1px solid var(--ink);padding-top:14px;margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.field legend{font-family:var(--mono);font-size:12px;letter-spacing:2px}
+fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+input[type=text],textarea{font-family:var(--body);font-size:18px;padding:12px;border:2px solid var(--ink);background:#FFFDF5;border-radius:0;width:100%}
+textarea{min-height:96px;resize:vertical}
+.choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.choice span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:56px;padding:8px;border:2px solid var(--ink);background:#FFFDF5;font-family:var(--display);font-weight:700;font-size:18px;line-height:1.1}
+.choice input:checked + span{background:var(--ink);color:var(--paper)}
+.choice input:focus-visible + span{outline:3px solid var(--stamp);outline-offset:2px}
+input[type=text]:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
+.hint{font-size:13px;font-style:italic;color:var(--ink-soft);margin:0}
+.btn{font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:1px;text-transform:uppercase;padding:14px 18px;min-height:52px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn[disabled]{opacity:.6;cursor:wait}
+.btn.ghost{background:transparent;color:var(--ink)}
+.msg{margin:0;font-size:15px}
+.msg.err{color:var(--stamp);font-style:italic}
+.done{border:3px double var(--ink);background:var(--paper-2);padding:16px;text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
+.done .kick{font-family:var(--mono);font-size:12px;letter-spacing:3px}
+.done .big{font-family:var(--display);font-weight:900;font-size:clamp(24px,6.5vw,34px);line-height:1.1;text-wrap:balance}
+.done .stamp{transform:rotate(-5deg);font-family:var(--mono);font-weight:600;letter-spacing:3px;color:var(--stamp);border:3px solid var(--stamp);padding:4px 10px}
+.list{display:flex;flex-direction:column;gap:12px}
+.group h3{font-family:var(--display);font-style:italic;font-weight:700;font-size:20px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px}
+.group h3 .n{font-family:var(--mono);font-style:normal;font-size:13px;font-weight:600;background:var(--ink);color:var(--paper);padding:1px 8px;font-variant-numeric:tabular-nums}
+.names{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.names li{border:1.5px solid var(--ink);background:#FFFDF5;padding:4px 10px;font-size:15px;max-width:100%;overflow-wrap:anywhere}
+.names li.me{background:var(--paper-2);font-weight:700}
+.empty{font-style:italic;color:var(--ink-soft);margin:0;font-size:15px}
+.foot{font-size:13px;font-style:italic;color:var(--ink-soft);text-align:center;border-top:1px solid var(--ink);padding-top:10px;margin:0}
+</style>
+</head>
+<body>
+<main class="sheet">
+  <div class="topline"><span>Edizione straordinaria</span><span>Anno XXIV · N. 24</span><span>Copia omaggio</span></div>
+  <p class="mast" aria-hidden="true">Il Quotidiano di Flavia</p>
+  <div class="dateline"><span>Napoli, giovedì 29 ottobre 2026</span><span>Conferme in redazione</span></div>
+  <h1>Flavia Sara compie 24 anni</h1>
+  <p class="dek">La redazione chiede a tutti gli invitati di confermare la propria presenza.</p>
+
+  <div class="ticket" aria-label="Dettagli della festa">
+    <div><small>QUANDO</small><strong>Giovedì 29 ottobre</strong></div>
+    <div><small>ORARIO</small><strong>21:00</strong></div>
+    <div><small>DOVE</small><strong>Spazio Nea · Piazza Bellini</strong></div>
+  </div>
+
+  <h2 class="section-h">CONFERMA LA TUA PRESENZA</h2>
+
+  <form id="rsvp" novalidate>
+    <div class="field">
+      <label for="nome">NOME E COGNOME</label>
+      <input id="nome" name="nome" type="text" maxlength="40" autocomplete="name" placeholder="Nome e Cognome" required>
+    </div>
+    <fieldset>
+      <legend>CI SARAI?</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="risposta" id="r-si" value="si"><span>Ci sarò</span></label>
+        <label class="choice"><input type="radio" name="risposta" id="r-forse" value="forse"><span>Forse</span></label>
+        <label class="choice"><input type="radio" name="risposta" id="r-no" value="no"><span>Non posso</span></label>
+      </div>
+    </fieldset>
+    <div class="field">
+      <label for="messaggio">LASCIA UN MESSAGGIO ALLA FESTEGGIATA</label>
+      <textarea id="messaggio" name="messaggio" maxlength="500" placeholder="Facoltativo"></textarea>
+      <p class="hint">Il messaggio lo legge solo Flavia. Il tuo nome e la tua risposta compaiono nell'elenco qui sotto, tranne chi risponde "Non posso".</p>
+    </div>
+    <p class="msg err" id="err" role="alert" hidden></p>
+    <button class="btn" type="submit" id="send">Invia in redazione</button>
+  </form>
+
+  <div class="done" id="done" hidden>
+    <div class="kick">RISPOSTA REGISTRATA</div>
+    <div class="big" id="doneText"></div>
+    <div class="stamp" id="doneStamp"></div>
+    <button class="btn ghost" type="button" id="change">Cambia risposta</button>
+  </div>
+
+  <h2 class="section-h">IN REDAZIONE GIOVEDÌ SERA</h2>
+  <div class="list" id="list" aria-live="polite">
+    <p class="empty" id="listState">Caricamento dell'elenco…</p>
+    <div class="group" id="g-si" hidden><h3>Ci saranno <span class="n" id="n-si">0</span></h3><ul class="names" id="l-si"></ul></div>
+    <div class="group" id="g-forse" hidden><h3>Forse <span class="n" id="n-forse">0</span></h3><ul class="names" id="l-forse"></ul></div>
+  </div>
+
+  <p class="foot">Hai già risposto e hai cambiato idea? Scrivi lo stesso nome e cognome e invia di nuovo: vale l'ultima risposta.</p>
+</main>
+
+<script>
+// Incolla qui l'URL dell'app web di Google Apps Script (finisce con /exec)
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOo540HwoQI3s9jpthKuXTvSreezkbLevcIGQH6S7wMLHH2aaTYeB9XlVLC4-k_li45Q/exec";
+
+const KEY = "flavia24-rsvp-v1";
+const LABEL = { si: "Ci sarò", forse: "Forse", no: "Non posso" };
+const $ = id => document.getElementById(id);
+const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+const configured = /^https:\/\/script\.google\.com\//.test(SCRIPT_URL);
+
+function readMine(){ try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch(e){ return null; } }
+function writeMine(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+
+function showDone(mine){
+  $("rsvp").hidden = true;
+  $("done").hidden = false;
+  const first = mine.nome.split(" ")[0];
+  $("doneText").textContent = mine.risposta === "no"
+    ? "Peccato, " + first + ". Grazie per avercelo detto."
+    : "Grazie, " + first + "! Ti aspettiamo giovedì.";
+  $("doneStamp").textContent = LABEL[mine.risposta].toUpperCase();
+}
+
+function fillForm(mine){
+  if(!mine) return;
+  $("nome").value = mine.nome || "";
+  const r = document.querySelector('input[name=risposta][value="' + mine.risposta + '"]');
+  if(r) r.checked = true;
+}
+
+function renderList(data){
+  const mine = readMine();
+  const myKey = mine ? norm(mine.nome) : "";
+  [["si", data.si || []], ["forse", data.forse || []]].forEach(([k, names]) => {
+    const ul = $("l-" + k);
+    ul.textContent = "";
+    names.forEach(n => {
+      const li = document.createElement("li");
+      li.textContent = n;
+      if(norm(n) === myKey) li.className = "me";
+      ul.append(li);
+    });
+    $("n-" + k).textContent = names.length;
+    $("g-" + k).hidden = names.length === 0;
+  });
+  const total = (data.si || []).length + (data.forse || []).length;
+  $("listState").hidden = total > 0;
+  $("listState").textContent = "Ancora nessuna conferma: sii il primo cronista a rispondere.";
+}
+
+async function loadList(){
+  if(!configured){
+    $("listState").textContent = "L'elenco apparirà qui appena la pagina sarà collegata al foglio delle risposte.";
+    return;
+  }
+  try {
+    const res = await fetch(SCRIPT_URL + "?t=" + Date.now());
+    const data = await res.json();
+    if(!data.ok) throw new Error();
+    renderList(data);
+  } catch(e){
+    $("listState").hidden = false;
+    $("listState").textContent = "Non riesco a caricare l'elenco in questo momento. Riprova tra poco.";
+  }
+}
+
+$("rsvp").addEventListener("submit", async e => {
+  e.preventDefault();
+  const err = $("err");
+  err.hidden = true;
+  const nome = $("nome").value.trim();
+  const sel = document.querySelector("input[name=risposta]:checked");
+  const messaggio = $("messaggio").value.trim();
+  if(!nome){ err.textContent = "Scrivi nome e cognome, così Flavia sa chi sei."; err.hidden = false; $("nome").focus(); return; }
+  if(!sel){ err.textContent = "Scegli una risposta: Ci sarò, Forse o Non posso."; err.hidden = false; return; }
+  if(!configured){ err.textContent = "La pagina non è ancora collegata al foglio delle risposte."; err.hidden = false; return; }
+  const btn = $("send");
+  btn.disabled = true; btn.textContent = "Invio in corso…";
+  try {
+    const res = await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify({ nome, risposta: sel.value, messaggio }) });
+    const data = await res.json();
+    if(!data.ok) throw new Error();
+    const mine = { nome, risposta: sel.value };
+    writeMine(mine);
+    $("messaggio").value = "";
+    showDone(mine);
+    loadList();
+  } catch(e2){
+    err.textContent = "Invio non riuscito. Controlla la connessione e riprova.";
+    err.hidden = false;
+  } finally {
+    btn.disabled = false; btn.textContent = "Invia in redazione";
+  }
+});
+
+$("change").addEventListener("click", () => {
+  fillForm(readMine());
+  $("done").hidden = true;
+  $("rsvp").hidden = false;
+  $("nome").focus();
+});
+
+const saved = readMine();
+if(saved){ fillForm(saved); showDone(saved); }
+loadList();
+</script>
+</body>
+</html>
