@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Conferma la tua presenza · Flavia 24</title>
-<meta name="description" content="Giovedì 29 ottobre, ore 21:00, Spazio Nea – Piazza Bellini, Napoli. Conferma la tua presenza alla festa per i 24 anni di Flavia.">
+<title>Trova qualcuno che · Flavia 24</title>
+<meta name="description" content="La pagina dei giochi del Quotidiano di Flavia: 24 notizie da verificare tra gli invitati.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
-/* Layout: prima pagina del Quotidiano su fondo miele; in alto la notizia della festa, poi il modulo di conferma, poi l'elenco di chi viene. */
+/* Layout: prima pagina del Quotidiano su fondo miele; griglia di 24 notizie da firmare, scheda in basso per scrivere la fonte, schermata finale da mostrare a Flavia. */
 :root{
   --honey:#FFD25E;
   --paper:#FFF9E6;
@@ -27,212 +27,325 @@
 html,body{margin:0;background:var(--honey);color:var(--ink)}
 [hidden]{display:none!important}
 body{font-family:var(--body);font-size:16px;line-height:1.45;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:calc(20px + env(safe-area-inset-top, 0px)) calc(40px + env(safe-area-inset-bottom, 0px))}
-button,input,textarea{font:inherit;color:inherit}
-.sheet{max-width:680px;margin:0 auto;background:var(--paper);box-shadow:0 18px 40px rgba(150,100,0,.25);padding:22px 20px 28px;display:flex;flex-direction:column;gap:16px}
+button,input{font:inherit;color:inherit}
+.sheet{max-width:760px;margin:0 auto;background:var(--paper);box-shadow:0 18px 40px rgba(150,100,0,.25);padding:22px 20px 28px;display:flex;flex-direction:column;gap:14px}
 .topline{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase}
-.mast{font-family:var(--mast);font-size:clamp(40px,10vw,66px);line-height:1;text-align:center;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding:10px 0 4px;margin:0;font-weight:400}
+.mast{font-family:var(--mast);font-size:clamp(40px,10vw,68px);line-height:1;text-align:center;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding:10px 0 4px;margin:0;font-weight:400}
 .dateline{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-style:italic;font-size:14px;border-bottom:1px solid var(--ink);padding-bottom:6px}
-h1{font-family:var(--display);font-weight:900;font-size:clamp(32px,8.5vw,54px);line-height:1;letter-spacing:-.5px;text-align:center;margin:4px 0 0;text-wrap:balance}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(30px,8vw,52px);line-height:1;letter-spacing:-.5px;text-align:center;margin:6px 0 0;text-wrap:balance}
 .dek{font-family:var(--display);font-style:italic;font-weight:700;color:var(--amber);font-size:clamp(17px,4.4vw,22px);line-height:1.25;text-align:center;margin:0;text-wrap:balance}
-.ticket{border:2px dashed var(--ink);background:var(--paper-2);padding:12px 14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}
-.ticket div{display:flex;flex-direction:column;gap:2px;min-width:0}
-.ticket small{font-family:var(--mono);font-size:11px;letter-spacing:2px}
-.ticket strong{font-family:var(--display);font-weight:900;font-size:clamp(16px,4.2vw,22px);line-height:1.15}
-@media (max-width:420px){.ticket{grid-template-columns:1fr}}
-.section-h{font-family:var(--mono);font-size:12px;letter-spacing:2px;font-weight:600;border-top:1px solid var(--ink);padding-top:14px;margin:0}
-form{display:flex;flex-direction:column;gap:14px}
-.field{display:flex;flex-direction:column;gap:6px}
-.field label,.field legend{font-family:var(--mono);font-size:12px;letter-spacing:2px}
-fieldset{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
-input[type=text],textarea{font-family:var(--body);font-size:18px;padding:12px;border:2px solid var(--ink);background:#FFFDF5;border-radius:0;width:100%}
-textarea{min-height:96px;resize:vertical}
-.choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.choice{position:relative}
-.choice input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.choice span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:56px;padding:8px;border:2px solid var(--ink);background:#FFFDF5;font-family:var(--display);font-weight:700;font-size:18px;line-height:1.1}
-.choice input:checked + span{background:var(--ink);color:var(--paper)}
-.choice input:focus-visible + span{outline:3px solid var(--stamp);outline-offset:2px}
-input[type=text]:focus-visible,textarea:focus-visible,button:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
-.hint{font-size:13px;font-style:italic;color:var(--ink-soft);margin:0}
-.btn{font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:1px;text-transform:uppercase;padding:14px 18px;min-height:52px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
-.btn[disabled]{opacity:.6;cursor:wait}
+.rules{border:2px dashed var(--ink);background:var(--paper-2);padding:12px 14px;font-size:15px;display:flex;flex-direction:column;gap:6px}
+.rules b{font-family:var(--mono);font-size:12px;letter-spacing:2px;font-weight:600}
+.rules .alert{margin:0;font-family:var(--display);font-weight:700;font-size:16px;line-height:1.3;color:var(--stamp);border-left:4px solid var(--stamp);padding-left:10px}
+.rules ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:2px}
+.who{display:flex;flex-wrap:wrap;gap:10px;align-items:end;border-top:1px solid var(--ink);padding-top:14px}
+.who label{font-family:var(--mono);font-size:12px;letter-spacing:2px;width:100%}
+.who input{flex:1 1 200px;min-width:0}
+input[type=text]{font-family:var(--body);font-size:18px;padding:12px;border:2px solid var(--ink);background:#FFFDF5;color:var(--ink);border-radius:0;width:100%}
+input[type=text]:focus-visible,button:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
+.btn{font-family:var(--mono);font-weight:600;font-size:14px;letter-spacing:1px;text-transform:uppercase;padding:12px 18px;min-height:48px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
 .btn.ghost{background:transparent;color:var(--ink)}
-.msg{margin:0;font-size:15px}
-.msg.err{color:var(--stamp);font-style:italic}
-.done{border:3px double var(--ink);background:var(--paper-2);padding:16px;text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
-.done .kick{font-family:var(--mono);font-size:12px;letter-spacing:3px}
-.done .big{font-family:var(--display);font-weight:900;font-size:clamp(24px,6.5vw,34px);line-height:1.1;text-wrap:balance}
-.done .stamp{transform:rotate(-5deg);font-family:var(--mono);font-weight:600;letter-spacing:3px;color:var(--stamp);border:3px solid var(--stamp);padding:4px 10px}
-.list{display:flex;flex-direction:column;gap:12px}
-.group h3{font-family:var(--display);font-style:italic;font-weight:700;font-size:20px;margin:0 0 6px;display:flex;align-items:baseline;gap:8px}
-.group h3 .n{font-family:var(--mono);font-style:normal;font-size:13px;font-weight:600;background:var(--ink);color:var(--paper);padding:1px 8px;font-variant-numeric:tabular-nums}
-.names{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
-.names li{border:1.5px solid var(--ink);background:#FFFDF5;padding:4px 10px;font-size:15px;max-width:100%;overflow-wrap:anywhere}
-.names li.me{background:var(--paper-2);font-weight:700}
-.empty{font-style:italic;color:var(--ink-soft);margin:0;font-size:15px}
-.foot{font-size:13px;font-style:italic;color:var(--ink-soft);text-align:center;border-top:1px solid var(--ink);padding-top:10px;margin:0}
+.btn.danger{background:var(--stamp);border-color:var(--stamp);color:#fff}
+.btn.wide{width:100%}
+.byline{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--paper);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:10px 0;font-size:15px}
+.byline .name{font-family:var(--display);font-weight:700;font-size:20px;overflow-wrap:anywhere}
+.meter{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:14px;font-weight:600;font-variant-numeric:tabular-nums}
+.bar{width:110px;height:10px;border:2px solid var(--ink);background:#FFFDF5}
+.bar i{display:block;height:100%;background:var(--ink);width:0;transition:width .3s ease}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card{position:relative;text-align:left;background:#FFFDF5;border:2px solid var(--ink);padding:10px 10px 12px;min-height:124px;display:flex;flex-direction:column;gap:6px;cursor:pointer;overflow:hidden}
+.card[disabled]{cursor:default}
+.card .no{font-family:var(--mono);font-size:11px;letter-spacing:1px;color:var(--ink-soft)}
+.card .q{font-family:var(--display);font-weight:700;font-size:16px;line-height:1.18;text-wrap:balance}
+.card .found{margin-top:auto;font-family:var(--mono);font-size:12px;color:var(--ink-soft);overflow-wrap:anywhere}
+.card.done{background:var(--paper-2)}
+.card.done .found{color:var(--ink);font-weight:600}
+.card.done::after{content:"TROVATO";position:absolute;right:-6px;top:8px;transform:rotate(12deg);font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:2px;color:var(--stamp);border:2px solid var(--stamp);padding:1px 6px;background:rgba(255,249,230,.75)}
+.deliver{border-top:1px solid var(--ink);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.deliver p{margin:0;font-size:15px}
+.confirm{border:2px solid var(--stamp);padding:12px;display:flex;flex-direction:column;gap:10px;background:#FFFDF5}
+.confirm p{margin:0}
+.confirm .row{display:flex;gap:10px;flex-wrap:wrap}
+.confirm .row .btn{flex:1 1 140px}
+.foot{font-size:13px;font-style:italic;color:var(--ink-soft);text-align:center;border-top:1px solid var(--ink);padding-top:10px;display:flex;flex-direction:column;gap:4px;align-items:center}
+.foot button{background:none;border:0;padding:6px;text-decoration:underline;cursor:pointer;font-style:italic;color:var(--ink-soft)}
+/* schermata finale */
+.final{border:3px double var(--ink);background:var(--paper-2);padding:20px 16px;text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
+.final .kick{font-family:var(--mono);font-size:12px;letter-spacing:3px}
+.final .who2{font-family:var(--mast);font-size:clamp(34px,9vw,52px);line-height:1.1;overflow-wrap:anywhere}
+.final .score{font-family:var(--display);font-weight:900;font-size:clamp(56px,16vw,96px);line-height:1;font-variant-numeric:tabular-nums}
+.final .score small{font-size:.4em;font-weight:700}
+.final .lbl{font-family:var(--display);font-style:italic;font-weight:700;font-size:18px}
+.final .time{font-family:var(--mono);font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}
+.final .stamp{transform:rotate(-6deg);font-family:var(--mono);font-weight:600;letter-spacing:3px;color:var(--stamp);border:3px solid var(--stamp);padding:6px 12px;margin-top:6px}
+.sources{border-top:1px solid var(--ink);padding-top:12px}
+.src-h{font-family:var(--mono);font-size:13px;letter-spacing:2px;font-weight:600;margin:0}
+.sources ol{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:0}
+.sources li{display:grid;grid-template-columns:2.4em minmax(0,1fr);gap:4px 8px;padding:8px 0;border-bottom:1px dashed var(--ink-soft)}
+.sources li .n{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.sources li .qq{font-size:14px;font-style:italic;color:var(--ink-soft);line-height:1.3}
+.sources li .aa{grid-column:2;font-family:var(--display);font-weight:700;font-size:19px;line-height:1.2;overflow-wrap:anywhere}
+.sources li.miss .aa{font-family:var(--mono);font-weight:500;font-size:13px;color:var(--ink-soft)}
+/* scheda in basso */
+.panel{position:fixed;left:0;right:0;bottom:0;background:var(--paper);border-top:3px solid var(--ink);box-shadow:0 -12px 30px rgba(80,50,0,.25);padding:18px max(16px, env(safe-area-inset-right, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));z-index:20}
+.panel .in{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.panel .q{font-family:var(--display);font-weight:900;font-size:22px;line-height:1.15}
+.panel .lbl{font-family:var(--mono);font-size:12px;letter-spacing:2px}
+.panel .row{display:flex;gap:10px;flex-wrap:wrap}
+.panel .row .btn{flex:1 1 110px}
+.warn{font-size:14px;color:var(--stamp);font-style:italic;margin:0}
+.scrim{position:fixed;inset:0;background:rgba(35,28,20,.35);z-index:19}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
 </head>
 <body>
 <main class="sheet">
-  <div class="topline"><span>Edizione straordinaria</span><span>Anno XXIV · N. 24</span><span>Copia omaggio</span></div>
+  <div class="topline"><span>Pagina dei giochi</span><span>Anno XXIV · N. 24</span><span>Spazio Nea</span></div>
   <p class="mast" aria-hidden="true">Il Quotidiano di Flavia</p>
-  <div class="dateline"><span>Napoli, giovedì 29 ottobre 2026</span><span>Conferme in redazione</span></div>
-  <h1>Flavia Sara compie 24 anni</h1>
-  <p class="dek">La redazione chiede a tutti gli invitati di confermare la propria presenza.</p>
+  <div class="dateline"><span>Napoli, giovedì 29 ottobre 2026</span><span>Edizione della serata</span></div>
+  <h1>Trova qualcuno che…</h1>
+  <p class="dek">Ventiquattro notizie, una per ogni anno della festeggiata. Servono fonti vere: nomi e cognomi.</p>
 
-  <div class="ticket" aria-label="Dettagli della festa">
-    <div><small>QUANDO</small><strong>Giovedì 29 ottobre</strong></div>
-    <div><small>ORARIO</small><strong>21:00</strong></div>
-    <div><small>DOVE</small><strong>Spazio Nea · Piazza Bellini</strong></div>
-  </div>
+  <section class="rules" aria-label="Regole">
+    <b>REGOLAMENTO DELLA REDAZIONE</b>
+    <p class="alert">Attenzione: quasi ogni casella corrisponde a una persona precisa. Basta sbagliare una sola fonte e l'articolo non è valido.</p>
+    <ol>
+      <li>Gira per la sala e trova chi corrisponde a ogni notizia.</li>
+      <li>Tocca la casella e scrivi il nome della tua fonte.</li>
+      <li>La stessa persona può firmare al massimo due caselle.</li>
+      <li>Quando Flavia chiude la redazione, tocca "Consegna l'articolo" e mostrale lo schermo.</li>
+      <li>Vince chi ha più caselle. A parità, chi ha consegnato prima.</li>
+    </ol>
+  </section>
 
-  <h2 class="section-h">CONFERMA LA TUA PRESENZA</h2>
+  <section id="start" class="who" aria-label="Il tuo nome">
+    <label for="myName">FIRMA DEL CRONISTA · IL TUO NOME</label>
+    <input id="myName" type="text" autocomplete="name" placeholder="Nome e Cognome" maxlength="40">
+    <button id="startBtn" class="btn" type="button">Inizia</button>
+  </section>
 
-  <form id="rsvp" novalidate>
-    <div class="field">
-      <label for="nome">NOME E COGNOME</label>
-      <input id="nome" name="nome" type="text" maxlength="40" autocomplete="name" placeholder="Nome e Cognome" required>
-    </div>
-    <fieldset>
-      <legend>CI SARAI?</legend>
-      <div class="choices">
-        <label class="choice"><input type="radio" name="risposta" id="r-si" value="si"><span>Ci sarò</span></label>
-        <label class="choice"><input type="radio" name="risposta" id="r-forse" value="forse"><span>Forse</span></label>
-        <label class="choice"><input type="radio" name="risposta" id="r-no" value="no"><span>Non posso</span></label>
+  <section id="game" hidden>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="byline">
+        <div>Cronista: <span class="name" id="byName"></span></div>
+        <div class="meter"><div class="bar" aria-hidden="true"><i id="barFill"></i></div><span id="count">0/24</span></div>
       </div>
-    </fieldset>
-    <div class="field">
-      <label for="messaggio">LASCIA UN MESSAGGIO ALLA FESTEGGIATA</label>
-      <textarea id="messaggio" name="messaggio" maxlength="500" placeholder="Facoltativo"></textarea>
-      <p class="hint">Il messaggio lo legge solo Flavia. Il tuo nome e la tua risposta compaiono nell'elenco qui sotto, tranne chi risponde "Non posso".</p>
+
+      <div id="final" class="final" hidden>
+        <div class="kick" id="finalKick">ARTICOLO CONSEGNATO</div>
+        <div class="who2" id="finalName"></div>
+        <div class="score" id="finalScore"></div>
+        <div class="lbl">notizie verificate</div>
+        <div class="time" id="finalTime"></div>
+        <div class="stamp">MOSTRA A FLAVIA</div>
+        <div class="lbl" style="font-size:15px">Le fonti sono qui sotto: Flavia le controlla una per una.</div>
+      </div>
+
+      <div class="grid" id="grid"></div>
+
+      <section class="sources" id="sources" hidden aria-label="Le fonti da verificare">
+        <h2 class="src-h">LE FONTI DA VERIFICARE</h2>
+        <ol id="sourceList"></ol>
+      </section>
+
+      <div class="deliver" id="deliver">
+        <p>Hai finito, o Flavia ha chiuso la redazione? Consegna il tuo articolo: da quel momento le caselle restano bloccate.</p>
+        <button id="deliverAsk" class="btn wide" type="button">Consegna l'articolo</button>
+        <div id="deliverBox" class="confirm" hidden>
+          <p id="deliverText"></p>
+          <div class="row">
+            <button id="deliverYes" class="btn" type="button">Sì, consegna</button>
+            <button id="deliverNo" class="btn ghost" type="button">Continuo a cercare</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot">
+        <span>Le tue risposte restano salvate su questo telefono, anche se chiudi la pagina.</span>
+        <button id="resetAsk" type="button">Ricomincia da capo</button>
+      </div>
+      <div id="resetBox" class="confirm" hidden>
+        <p>Vuoi cancellare tutte le caselle e il tuo nome?</p>
+        <div class="row">
+          <button id="resetYes" class="btn danger" type="button">Sì, cancella</button>
+          <button id="resetNo" class="btn ghost" type="button">Annulla</button>
+        </div>
+      </div>
     </div>
-    <p class="msg err" id="err" role="alert" hidden></p>
-    <button class="btn" type="submit" id="send">Invia in redazione</button>
-  </form>
-
-  <div class="done" id="done" hidden>
-    <div class="kick">RISPOSTA REGISTRATA</div>
-    <div class="big" id="doneText"></div>
-    <div class="stamp" id="doneStamp"></div>
-    <button class="btn ghost" type="button" id="change">Cambia risposta</button>
-  </div>
-
-  <h2 class="section-h">IN REDAZIONE GIOVEDÌ SERA</h2>
-  <div class="list" id="list" aria-live="polite">
-    <p class="empty" id="listState">Caricamento dell'elenco…</p>
-    <div class="group" id="g-si" hidden><h3>Ci saranno <span class="n" id="n-si">0</span></h3><ul class="names" id="l-si"></ul></div>
-    <div class="group" id="g-forse" hidden><h3>Forse <span class="n" id="n-forse">0</span></h3><ul class="names" id="l-forse"></ul></div>
-  </div>
-
-  <p class="foot">Hai già risposto e hai cambiato idea? Scrivi lo stesso nome e cognome e invia di nuovo: vale l'ultima risposta.</p>
+  </section>
 </main>
 
-<script>
-// Incolla qui l'URL dell'app web di Google Apps Script (finisce con /exec)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOo540HwoQI3s9jpthKuXTvSreezkbLevcIGQH6S7wMLHH2aaTYeB9XlVLC4-k_li45Q/exec";
+<div id="scrim" class="scrim" hidden></div>
+<div id="panel" class="panel" role="dialog" aria-modal="true" aria-labelledby="pQ" hidden>
+  <div class="in">
+    <div class="lbl" id="pNo"></div>
+    <div class="q" id="pQ"></div>
+    <label class="lbl" for="pName">NOME DELLA FONTE</label>
+    <input id="pName" type="text" maxlength="40" placeholder="Chi hai trovato?" autocomplete="off">
+    <p class="warn" id="pWarn" hidden></p>
+    <div class="row">
+      <button id="pSave" class="btn" type="button">Salva</button>
+      <button id="pClear" class="btn ghost" type="button" hidden>Svuota</button>
+      <button id="pCancel" class="btn ghost" type="button">Chiudi</button>
+    </div>
+  </div>
+</div>
 
-const KEY = "flavia24-rsvp-v1";
-const LABEL = { si: "Ci sarò", forse: "Forse", no: "Non posso" };
+<script>
+// Le 24 notizie: modificale pure, una per riga, tra virgolette
+const PROMPTS = [
+  "è il fidanzato della festeggiata",
+  "monta video da maestro (ed è il miglior rompipalle)",
+  "è una fotografa fantastica",
+  "conosce Flavia da più di 10 anni",
+  "è il Passenger Princess ufficiale di Flavia",
+  "ha un tatuaggio",
+  "suona uno strumento",
+  "è un regista che litiga con Flavia h24 (e dimentica spesso la testa)",
+  "è il fratello della festeggiata",
+  "sale sul ring: fa pugilato",
+  "ha gli stessi gusti di Flavia in serie, film e libri",
+  "beve il caffè senza zucchero",
+  "è una ballerina meravigliosa",
+  "è l'alter ego di Flavia",
+  "ha fatto con Flavia sessioni di studio disperato per gli esami dell'università",
+  "è un'artista a 360 gradi",
+  "è un'infermiera che salva le vite",
+  "è entrata da poco nella vita di Flavia, ma è già indispensabile",
+  "è soprannominata \"a cines\"",
+  "è il protagonista di un film",
+  "è completamente pazza (parola di Flavia)",
+  "ha una foto con Flavia di più di 5 anni fa",
+  "ha ricevuto almeno un passaggio in macchina da Flavia",
+  "ha visto almeno una puntata di Bridgerton"
+];
+const MAX_PER_PERSON = 2;
+const KEY = "flavia24-trova-v2";
+const TOTAL = PROMPTS.length;
+let state = { name: "", answers: {}, deliveredAt: null };
+let current = null;
+
 const $ = id => document.getElementById(id);
 const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
-const configured = /^https:\/\/script\.google\.com\//.test(SCRIPT_URL);
+const pad = n => String(n).padStart(2, "0");
+function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s && typeof s === "object") state = Object.assign(state, s); }catch(e){} }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function count(){ return Object.keys(state.answers).filter(k => state.answers[k]).length; }
+function timeOf(ms){ return new Date(ms).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", second: "2-digit" }); }
 
-function readMine(){ try { return JSON.parse(localStorage.getItem(KEY)) || null; } catch(e){ return null; } }
-function writeMine(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+function render(){
+  const started = !!state.name;
+  $("start").hidden = started;
+  $("game").hidden = !started;
+  if(!started) return;
+  const delivered = !!state.deliveredAt;
+  const n = count();
+  $("byName").textContent = state.name;
+  $("count").textContent = n + "/" + TOTAL;
+  $("barFill").style.width = (n / TOTAL * 100) + "%";
 
-function showDone(mine){
-  $("rsvp").hidden = true;
-  $("done").hidden = false;
-  const first = mine.nome.split(" ")[0];
-  $("doneText").textContent = mine.risposta === "no"
-    ? "Peccato, " + first + ". Grazie per avercelo detto."
-    : "Grazie, " + first + "! Ti aspettiamo giovedì.";
-  $("doneStamp").textContent = LABEL[mine.risposta].toUpperCase();
-}
-
-function fillForm(mine){
-  if(!mine) return;
-  $("nome").value = mine.nome || "";
-  const r = document.querySelector('input[name=risposta][value="' + mine.risposta + '"]');
-  if(r) r.checked = true;
-}
-
-function renderList(data){
-  const mine = readMine();
-  const myKey = mine ? norm(mine.nome) : "";
-  [["si", data.si || []], ["forse", data.forse || []]].forEach(([k, names]) => {
-    const ul = $("l-" + k);
-    ul.textContent = "";
-    names.forEach(n => {
-      const li = document.createElement("li");
-      li.textContent = n;
-      if(norm(n) === myKey) li.className = "me";
-      ul.append(li);
-    });
-    $("n-" + k).textContent = names.length;
-    $("g-" + k).hidden = names.length === 0;
+  const grid = $("grid");
+  grid.textContent = "";
+  PROMPTS.forEach((q, i) => {
+    const a = state.answers[i];
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "card" + (a ? " done" : "");
+    b.disabled = delivered;
+    b.setAttribute("aria-label", "Notizia " + (i + 1) + ": trova qualcuno che " + q + (a ? ". Fonte: " + a : ". Da trovare"));
+    const no = document.createElement("span"); no.className = "no"; no.textContent = "N. " + pad(i + 1);
+    const t = document.createElement("span"); t.className = "q"; t.textContent = "…" + q;
+    const f = document.createElement("span"); f.className = "found"; f.textContent = a ? "Fonte: " + a : (delivered ? "Non trovata" : "Tocca per firmare");
+    b.append(no, t, f);
+    if(!delivered) b.addEventListener("click", () => openPanel(i));
+    grid.append(b);
   });
-  const total = (data.si || []).length + (data.forse || []).length;
-  $("listState").hidden = total > 0;
-  $("listState").textContent = "Ancora nessuna conferma: sii il primo cronista a rispondere.";
+
+  $("final").hidden = !delivered;
+  $("deliver").hidden = delivered;
+  $("resetAsk").hidden = delivered;
+  $("grid").hidden = delivered;
+  $("sources").hidden = !delivered;
+  if(delivered){
+    $("finalKick").textContent = n === TOTAL ? "EDIZIONE COMPLETA!" : "ARTICOLO CONSEGNATO";
+    $("finalName").textContent = state.name;
+    $("finalScore").innerHTML = "";
+    $("finalScore").append(String(n));
+    const sm = document.createElement("small"); sm.textContent = " / " + TOTAL; $("finalScore").append(sm);
+    $("finalTime").textContent = "Consegnato alle " + timeOf(state.deliveredAt);
+    const ol = $("sourceList"); ol.textContent = "";
+    PROMPTS.forEach((q, i) => {
+      const a = state.answers[i];
+      const li = document.createElement("li");
+      if(!a) li.className = "miss";
+      const nn = document.createElement("span"); nn.className = "n"; nn.textContent = pad(i + 1);
+      const qq = document.createElement("span"); qq.className = "qq"; qq.textContent = "…" + q;
+      const aa = document.createElement("span"); aa.className = "aa"; aa.textContent = a || "non trovata";
+      li.append(nn, qq, aa);
+      ol.append(li);
+    });
+  }
 }
 
-async function loadList(){
-  if(!configured){
-    $("listState").textContent = "L'elenco apparirà qui appena la pagina sarà collegata al foglio delle risposte.";
-    return;
-  }
-  try {
-    const res = await fetch(SCRIPT_URL + "?t=" + Date.now());
-    const data = await res.json();
-    if(!data.ok) throw new Error();
-    renderList(data);
-  } catch(e){
-    $("listState").hidden = false;
-    $("listState").textContent = "Non riesco a caricare l'elenco in questo momento. Riprova tra poco.";
-  }
+function openPanel(i){
+  current = i;
+  $("pNo").textContent = "NOTIZIA N. " + pad(i + 1);
+  $("pQ").textContent = "Trova qualcuno che " + PROMPTS[i];
+  $("pName").value = state.answers[i] || "";
+  $("pClear").hidden = !state.answers[i];
+  $("pWarn").hidden = true;
+  $("panel").hidden = false; $("scrim").hidden = false;
+  setTimeout(() => $("pName").focus(), 30);
+}
+function closePanel(){ $("panel").hidden = true; $("scrim").hidden = true; current = null; }
+function warn(msg){ $("pWarn").textContent = msg; $("pWarn").hidden = false; }
+
+function saveAnswer(){
+  const v = $("pName").value.trim();
+  if(!v) return warn("Scrivi il nome della persona che hai trovato.");
+  if(norm(v) === norm(state.name)) return warn("Non puoi essere la tua stessa fonte: trova qualcun altro.");
+  const used = Object.entries(state.answers).filter(([k, a]) => Number(k) !== current && norm(a) === norm(v)).map(([k]) => Number(k) + 1);
+  if(used.length >= MAX_PER_PERSON) return warn(v + " ha già firmato due caselle (N. " + used.map(pad).join(" e N. ") + "). Trova un'altra fonte.");
+  state.answers[current] = v;
+  if(count() === TOTAL) state.deliveredAt = Date.now();
+  save(); closePanel(); render();
+  if(state.deliveredAt) window.scrollTo({ top: 0 });
 }
 
-$("rsvp").addEventListener("submit", async e => {
-  e.preventDefault();
-  const err = $("err");
-  err.hidden = true;
-  const nome = $("nome").value.trim();
-  const sel = document.querySelector("input[name=risposta]:checked");
-  const messaggio = $("messaggio").value.trim();
-  if(!nome){ err.textContent = "Scrivi nome e cognome, così Flavia sa chi sei."; err.hidden = false; $("nome").focus(); return; }
-  if(!sel){ err.textContent = "Scegli una risposta: Ci sarò, Forse o Non posso."; err.hidden = false; return; }
-  if(!configured){ err.textContent = "La pagina non è ancora collegata al foglio delle risposte."; err.hidden = false; return; }
-  const btn = $("send");
-  btn.disabled = true; btn.textContent = "Invio in corso…";
-  try {
-    const res = await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify({ nome, risposta: sel.value, messaggio }) });
-    const data = await res.json();
-    if(!data.ok) throw new Error();
-    const mine = { nome, risposta: sel.value };
-    writeMine(mine);
-    $("messaggio").value = "";
-    showDone(mine);
-    loadList();
-  } catch(e2){
-    err.textContent = "Invio non riuscito. Controlla la connessione e riprova.";
-    err.hidden = false;
-  } finally {
-    btn.disabled = false; btn.textContent = "Invia in redazione";
-  }
+$("startBtn").addEventListener("click", () => {
+  const v = $("myName").value.trim();
+  if(!v){ $("myName").focus(); $("myName").placeholder = "Scrivi il tuo nome per iniziare"; return; }
+  state.name = v; save(); render();
+});
+$("myName").addEventListener("keydown", e => { if(e.key === "Enter") $("startBtn").click(); });
+$("pSave").addEventListener("click", saveAnswer);
+$("pName").addEventListener("keydown", e => { if(e.key === "Enter") saveAnswer(); if(e.key === "Escape") closePanel(); });
+$("pCancel").addEventListener("click", closePanel);
+$("scrim").addEventListener("click", closePanel);
+$("pClear").addEventListener("click", () => { delete state.answers[current]; save(); closePanel(); render(); });
+
+$("deliverAsk").addEventListener("click", () => {
+  const n = count();
+  $("deliverText").textContent = "Consegni con " + n + " notizie su " + TOTAL + "? Dopo non potrai più modificare le caselle.";
+  $("deliverBox").hidden = false;
+});
+$("deliverNo").addEventListener("click", () => { $("deliverBox").hidden = true; });
+$("deliverYes").addEventListener("click", () => {
+  state.deliveredAt = Date.now(); save(); $("deliverBox").hidden = true; render(); window.scrollTo({ top: 0 });
 });
 
-$("change").addEventListener("click", () => {
-  fillForm(readMine());
-  $("done").hidden = true;
-  $("rsvp").hidden = false;
-  $("nome").focus();
+$("resetAsk").addEventListener("click", () => { $("resetBox").hidden = false; });
+$("resetNo").addEventListener("click", () => { $("resetBox").hidden = true; });
+$("resetYes").addEventListener("click", () => {
+  state = { name: "", answers: {}, deliveredAt: null }; save();
+  $("resetBox").hidden = true; $("myName").value = ""; render(); window.scrollTo({ top: 0 });
 });
 
-const saved = readMine();
-if(saved){ fillForm(saved); showDone(saved); }
-loadList();
+load(); render();
+
+// Dopo la prima apertura il gioco funziona anche senza connessione
+if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(() => {}); }
 </script>
 </body>
 </html>
